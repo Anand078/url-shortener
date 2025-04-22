@@ -1,8 +1,10 @@
 package storage
 
 import (
+	"fmt"
 	"net/url"
 	"sort"
+	"strings"
 	"sync"
 )
 
@@ -111,10 +113,21 @@ func (s *InMemoryStorage) GetTopDomains(n int) []DomainCount {
 }
 
 // ExtractDomain extracts domain from a URL string
+// ExtractDomain extracts domain from a URL string
 func ExtractDomain(urlStr string) (string, error) {
+	// Add a check for scheme
+	if !strings.Contains(urlStr, "://") {
+		return "", fmt.Errorf("invalid URL: missing scheme")
+	}
+
 	parsedURL, err := url.Parse(urlStr)
 	if err != nil {
 		return "", err
 	}
+
+	if parsedURL.Hostname() == "" {
+		return "", fmt.Errorf("invalid URL: missing hostname")
+	}
+
 	return parsedURL.Hostname(), nil
 }
