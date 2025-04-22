@@ -7,10 +7,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/Anand078/url-shortener/internal/shortener"
+	"github.com/Anand078/url-shortener/internal/storage"
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
-	"github.com/yourusername/url-shortener/internal/shortener"
-	"github.com/yourusername/url-shortener/internal/storage"
 )
 
 // setupTestEnvironment creates test dependencies
